@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
-  <display-name>WebServlet_2</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>WebServlet_2</display-name>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>path</servlet-name>
+		<servlet-class>com.PathServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>path</servlet-name>
+		<url-pattern>/java/study/*</url-pattern>
+	</servlet-mapping>
+		<!-- 
+		<기존>
+		url-pattern : /simple  
+		url-pattern : /action.do
+		
+		<새로운 방식>
+		https://192.168.0.54:8090/WebServlet_2/java/study/board.jsp
+		https://192.168.0.54:8090/WebServlet_2/java/study/a.jsp
+		https://192.168.0.54:8090/WebServlet_2/java/study/aaaa  (폴더)
+		>> com.PathServlet 실행
+		>> 경로만 맞으면 없는 파일이여도 무조건 servlet 실행!!!!
+		
+		## #특정 주소가 아닌 경로로도 mapping 가능하다 ###
+		
+		+ <url-pattern>/java/study/*.do</url-pattern>
+			처럼, do로 끝나는 주소일때~ 로 설정도 가능
+		
+		
+		-->
 </web-app>
