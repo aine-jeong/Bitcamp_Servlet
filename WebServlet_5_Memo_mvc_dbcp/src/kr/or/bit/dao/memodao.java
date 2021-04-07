@@ -7,6 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import kr.or.bit.dto.memo;
 import kr.or.bit.utils.SingletonHelper;
 
@@ -27,22 +32,42 @@ import kr.or.bit.utils.SingletonHelper;
  DAO는 CRUD 함수를 생성해두는 것
  
  
- -- Singleton은 좋은 작업은 아니다 (나중에 안쓰는듯 ㅇ.ㅇ ...)
+ -- Singleton은 좋은 작업은 아니다 (나중에 안쓰는듯 ㅇ.ㅇ ...) => ConnectionPool 사용
  -- ArrayList, HaspMap 반드시 복습해라 ~~~~~~~
  */
 
 public class memodao {
+	/* 
+	 * 싱글톤을 사용한 DB연결은 학습용!!!
+	 * 더이상 사용하지 않아용
 	Connection conn = null;
 	
 	public memodao() {
 		conn = SingletonHelper.getConnection("oracle"); 
 	}
+	*/
+	
+	//POOL방식
+	DataSource ds = null;
+	public memodao() {
+		try {
+			Context context = new InitialContext();
+			ds = (DataSource)context.lookup("java:comp/env/jdbc/oracle");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	//전체조회
 	public List<memo> getMemoList() throws SQLException { // 데이터 여러건을 리턴하는 것
 		
 		PreparedStatement pstmt = null; 
 		String sql = "SELECT id, email, content FROM memo";
+		
+		////POOL/////////////////////////
+		Connection conn = ds.getConnection();
+		////////////////////////////
 		
 		//컴파일 시켜두는것
 		pstmt = conn.prepareStatement(sql); //원래 예외처리를 해야한다!!( 여기서는 함수를 쓰는 사람이 try catch하도록 만들었다 )
@@ -67,6 +92,11 @@ public class memodao {
 		SingletonHelper.close(rs);
 		SingletonHelper.close(pstmt);
 		
+		///POOL반환/////
+		conn.close();
+		///////////////
+		
+		
 		return memolist;
 	}
 	
@@ -86,24 +116,37 @@ public class memodao {
 	//public int insertMemo(String id, String email, String content)
 	// parameter를 객체형태로 받고싶다 (DTO로!)
 	public int insertMemo(memo m) {
+		Connection conn = null;
 		int resultrow = 0;
-		
+
 		PreparedStatement pstmt = null;
 		String sql = "INSERT INTO memo(id,email,content) VALUES (?,?,?)";
-		
+
 		try {
+			////POOL/////////////////////
+			conn = ds.getConnection();
+			////////////////////////////
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, m.getId());
 			pstmt.setString(2, m.getEmail());
 			pstmt.setString(3, m.getContent());
-			
+
 			resultrow = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			SingletonHelper.close(pstmt);
+
+			try {
+				/// POOL반환/////
+				conn.close();
+				///////////////
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
 		}
 		
 		return resultrow;
@@ -129,6 +172,8 @@ public class memodao {
 	//ID중복확인함수 (ID유무 확인!)
 	public String isCheckById(String id) {
 		
+		Connection conn = null;
+		
 		String ismemoid = null;
 		//PreparedStatement
 		//미리 SQL문이 셋팅된 Statement가 DB가에 전송되어져서 컴파일되어지고, 
@@ -139,6 +184,9 @@ public class memodao {
 		String sql = "SELECT id FROM memo WHERE id=?";	
 		
 		try {
+			//POOL////
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			 
@@ -155,8 +203,14 @@ public class memodao {
 		} finally {
 			SingletonHelper.close(rs);
 			SingletonHelper.close(pstmt);
+			
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
 		}
-		
 		
 		return ismemoid;
 	}
