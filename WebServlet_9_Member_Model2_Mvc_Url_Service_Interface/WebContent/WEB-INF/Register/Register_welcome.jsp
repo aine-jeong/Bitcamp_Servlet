@@ -7,6 +7,6 @@
 <title>환영합니당</title>
 </head>
 <body>
-	<h3>✨ 가입을 환영합니당 ✨</h3>
+	<h3>✨ <%=request.getAttribute("data") %>님 가입을 환영합니다 ✨</h3>
 </body>
 </html>
