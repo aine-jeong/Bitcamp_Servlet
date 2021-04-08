@@ -41,11 +41,11 @@ A 사람
 B 사람
 요청에 대한 FrontController 만들어 사용 (한개 )
 
-게시판 : BoardFrontController (게시판 관련된 모든 요청)
+게시판 : BoardFrontController (게시판 관련된 모든 요청) *.board
 
-회원 : MemberFrontController  (회원 관련 모든 요청)
+회원 : MemberFrontController  (회원 관련 모든 요청)   *.member
 
-관리자 : AdminFrontController (관리자 관련 모든 요청)
+관리자 : AdminFrontController (관리자 관련 모든 요청)  *.admin
 
 >> 한개 : FrontMemoController (servlet)
 >> 요청판단의 방식
@@ -63,7 +63,7 @@ forward.setPath("/WEB-INF/Register/Register.jsp");
 AJAX 처리하기
 1. 기존의 동기 처리와 동일하게 처리하기 (별도의 jsp 파일 만듬)
 
-2. 별도의 servlet 을 만들어서 처리하는 방식 (별도의 요청으로 처리)
+2. 별도의 servlet 을 만들어서 처리하는 방식 (별도의 요청으로 처리) < 이 방법이 좀 더 편할 것 같당~~
  
 
     
