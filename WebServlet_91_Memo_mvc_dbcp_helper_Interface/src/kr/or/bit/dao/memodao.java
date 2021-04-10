@@ -35,11 +35,16 @@ public class memodao {
 	}
 	*/
 	/*
-	 * DataSource ds = null; public memodao(){ try { Context context = new
-	 * InitialContext(); //현재 프로젝트에 이름기반 검색 ds =
-	 * (DataSource)context.lookup("java:comp/env/jdbc/oracle");//java:comp/env/ +
-	 * name //각가의 함수 안에서 얻고 반환하고 .... } catch (Exception e) {
-	 * System.out.println(e.getMessage()); }
+	 * DataSource ds = null; 
+	 * public memodao(){ 
+	 * try { 
+	 * Context context = new InitialContext(); //현재 프로젝트에 이름기반 검색 
+	 * ds = (DataSource)context.lookup("java:comp/env/jdbc/oracle"); 
+	 * //java:comp/env/ +name 
+	 * //각각의 함수 안에서 얻고 반환하고 .... 
+	 * } catch (Exception e) {
+	 * System.out.println(e.getMessage()); 
+	 * }
 	 * 
 	 * }
 	 */
