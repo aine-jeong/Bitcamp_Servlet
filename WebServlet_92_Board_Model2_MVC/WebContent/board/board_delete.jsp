@@ -4,16 +4,10 @@
 	//삭제글 처리 (글번호 받기)
 	String idx = request.getParameter("idx");
 	if(idx == null || idx.trim().equals(""))
-	{
-%>
-	<script>
-		alert("글번호가 넘어오지 않았습니다");
-		//이전페이지로 돌아가는 JS코드
-		history.back();
-	</script>
-<%	
-	return; //서버에서 더이 코드 실행하지 않고 종료 .....
-	}
+		if(idx == null || idx.trim().equals("")){
+			response.sendRedirect("board_list.jsp"); //cpage=1 , ps=5
+			return;
+		}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

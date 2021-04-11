@@ -66,6 +66,8 @@
 	<c:set var="cpage" value="<%=cpage%>" />
 	<c:set var="pagecount" value="<%=pagecount%>" />
 	
+	<c:set var="list" value="${requestScope.boardlist}"></c:set>
+	
 	<div id="pagecontainer">
 		<div style="padding-top: 30px; text-align: cetner">
 			<table width="80%" border="1" cellspacing="0" align="center">

@@ -20,8 +20,8 @@ public class BoardService {
 	//서비스 요청(글쓰기)
 		public int writeOk(Board boarddata) throws Exception {
 			BoardDao dao = new BoardDao();
-			int result = dao.writeok(boarddata);
-			return result;
+			//int result = dao.writeok(boarddata);
+			return 0;
 		}
 		
 		//서비스 요청(글목록 보여주기)

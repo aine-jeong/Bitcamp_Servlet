@@ -28,7 +28,7 @@ public class BoardDao {
 	}
 	
 	//글쓰기(원본글)
-	public int writeok(Board boarddata) {
+	public int writeok(String subject, String writer, String email, String homepage, String content, String pwd, String filename) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int row = 0;
@@ -39,13 +39,13 @@ public class BoardDao {
 					   " values(jspboard_idx.nextval,?,?,?,?,?,?,sysdate,0,?,0,?)";
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, boarddata.getWriter());
-			pstmt.setString(2, boarddata.getPwd());
-			pstmt.setString(3, boarddata.getSubject());
-			pstmt.setString(4, boarddata.getContent());
-			pstmt.setString(5, boarddata.getEmail());
-			pstmt.setString(6, boarddata.getHomepage());
-			pstmt.setString(7, boarddata.getFilename());
+			pstmt.setString(1, writer);
+			pstmt.setString(2, pwd);
+			pstmt.setString(3, subject);
+			pstmt.setString(4, content);
+			pstmt.setString(5, email);
+			pstmt.setString(6, homepage);
+			pstmt.setString(7, filename);
 			
 			//계층형 게시판
 			//refer(참조값) , step , depth
