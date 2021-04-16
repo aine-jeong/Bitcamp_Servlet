@@ -1,0 +1,13 @@
+desc adminlist;
+create table  adminlist (
+USERID    VARCHAR2(50) ,
+PWD       VARCHAR2(50) 
+);
+
+insert into adminlist (userid, pwd)
+values('admin','1004');
+
+select * from adminlist;
+
+alter table emp
+add filename varchar2(100);
